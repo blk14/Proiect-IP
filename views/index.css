@@ -1,0 +1,34 @@
+body {
+    background-image : url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn {
+    position: relative;
+    top: 35%;
+    width: 250px;
+    left: 40%;
+    background-color: #ffab4a;
+    transition-duration: 0.4s;
+    color: white;
+    border: none;
+    font-size : 25px;
+}
+
+.btn:hover{
+    background-color: #5880c4;
+}
+
+.btn-secondary {
+    top: 35%;
+}
+
+h3 {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    top: 35%;
+    font-size: 18;
+    left: 42%;
+    color: white;
+}
