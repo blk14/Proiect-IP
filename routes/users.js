@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
 const User = require('../models/User');
-const { forwardAuthenticated } = require('../config/auth');
+const {ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 User.updateOne({email: 'u1@gmail'}, {
   amount: 10
@@ -98,13 +98,15 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/payments', (req, res) => {
+router.get('/payments', ensureAuthenticated, (req, res) => {
   res.render('payments.ejs');
 });
 
-router.get('/transactions', (req, res) => {
-  res.render('transactions.ejs');
-});
+router.get('/transactions', ensureAuthenticated,(req, res) =>
+  res.render('transactions.ejs', {
+    history: req.user.history
+  })
+);
 
 router.post('/payments', (req, res) => {
   // console.log(req.user.email + " fraierul")
@@ -140,6 +142,7 @@ router.post('/payments', (req, res) => {
           if (sender_data.amount < amount) {
             errors.push({msg: 'Not enough money'});
           } else {
+            console.log("Lista baietii: " + sender_data.history);
             var updated_amount = parseInt(amount) + receiver_data.amount
             console.log("Send " + amount);
 
@@ -157,6 +160,26 @@ router.post('/payments', (req, res) => {
               console.log(resp);
             })
 
+            var date = new Date();
+            var sender_history = sender_data.history;
+            var string_s = "Sent " + amount + "$ to " + receiver + " | " + date;
+            sender_history.unshift(string_s);
+            User.updateOne({email: sender}, {
+              history: sender_history
+            }, function(err, affected, resp) {
+              console.log(resp);
+            })
+            console.log(string_s);
+
+            var receiver_history = receiver_data.history;
+            var string_r = "Received " + amount + "$ from " + sender + " | " + date; 
+            receiver_history.unshift(string_r);
+            User.updateOne({email: receiver}, {
+              history: receiver_history
+            }, function(err, affected, resp) {
+              console.log(resp);
+            })
+            console.log(string_r);
           }
         });
 

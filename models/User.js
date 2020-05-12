@@ -20,12 +20,12 @@ const UserSchema = new mongoose.Schema({
   amount: {
     type: Number,
     default: 5
+  },
+  history: {
+    type: [String],
+    default: []
+
   }
-  // history: {
-  //   type: String,
-  //   value: [String],
-  //   default: []
-  // }
 });
 
 const User = mongoose.model('User', UserSchema);
