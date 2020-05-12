@@ -7,7 +7,10 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="about.css">
 <link rel="stylesheet" type="text/css" href="home.css">
+
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
+<link rel="stylesheet" type="text/css" href="pay_form.css">
+
 
 <style type="text/css">
   a:hover {
@@ -28,7 +31,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Home</a>
+                <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Home</a> -->
+                <a class="nav-link" href="/users/login">Home</a>
+
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="/users/login">Account Management</a>
@@ -37,7 +42,8 @@
                 <a class="nav-link" href="/users/transactions">Transactions</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users/payments">Payments</a>
+                <!-- <a class="nav-link" href="/users/payments">Payments</a> -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Payments</a>
             </li>
             <li { cursor: pointer; } class="nav-item">
                 <form action="/users/logout?_method=DELETE" method="POST">
@@ -48,56 +54,33 @@
         </div>
     </nav>
     <div>
-        <h3>Current Amount:</h3>
-        <h1><%= amount %>$</h1>
+      <div class="row">
+        <div class="col-75">
+          <div class="container">
+            <form action="/users/payments" method="POST">
+      
+              <div class="row">
+                <div class="col-50">
+      
+                <div class="col-50">
+                  <h3>Payment</h3>
+                  <label for="receiver">Send to</label>
+                  <input type="text" id="receiver" name="receiver" placeholder="user1@gmail.com">
+                  <label for="amount">Amount</label>
+                  <input type="text" id="amount" name="amount" placeholder="100">
 
-        <!-- <button id="btn">RESTART</button> -->
-        <div id="progress-bar-container">
-		    <div class="progress-bar-child progress"></div>
-		    <div class="progress-bar-child shrinker timelapse"></div>
+    
+                </div>
+      
+              </div>
+              <input type="submit" value="Pay" class="btn">
+            </form>
+          </div>
         </div>
+      </div>
     </div>
     
 </body>
 
-
-    <footer class="mainfooter" role="contentinfo">
-        <div class="footer-middle">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 col-sm-6">
-              <!--Column1-->
-              <div class="footer-pad">
-                <h4>Follow Us</h4>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <!--Column1-->
-              <div class="footer-pad">
-                <h4>Instagram</h4>
-                
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-              <!--Column1-->
-              <div class="footer-pad">
-                <h4>Youtube</h4>
-                
-              </div>
-            </div>
-              <div class="col-md-3">
-                  <h4>Facebook</h4>			
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-md-12 copy">
-                  <p class="text-center">&copy; Copyright 2020 - Stars Bank Inc.  All rights reserved.</p>
-              </div>
-          </div>
-      
-      
-        </div>
-        </div>
-      </footer>
 </html>
 

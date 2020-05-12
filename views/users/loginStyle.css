@@ -6,7 +6,7 @@ background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
-font-family: 'Numans', sans-serif;
+/* font-family: 'Numans', sans-serif; */
 }
 
 .container{
@@ -88,5 +88,5 @@ margin-left: 4px;
 }
 
 h3 {
-	color: #ffdd99;
+	color: #1d4da7;
 }

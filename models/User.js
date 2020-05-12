@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema({
     type: Number,
     default: 5
   }
+  // history: {
+  //   type: String,
+  //   value: [String],
+  //   default: []
+  // }
 });
 
 const User = mongoose.model('User', UserSchema);

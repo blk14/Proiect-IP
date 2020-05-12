@@ -98,4 +98,75 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/payments', (req, res) => {
+  res.render('payments.ejs');
+});
+
+router.get('/transactions', (req, res) => {
+  res.render('transactions.ejs');
+});
+
+router.post('/payments', (req, res) => {
+  // console.log(req.user.email + " fraierul")
+  var {receiver, amount} = req.body;
+  let errors = [];
+  var sender = req.user.email;
+
+  if (!receiver || !amount) {
+    errors.push({ msg: 'Please enter all fields' });
+    res.redirect('/users/login');
+    return;
+  }
+  
+  if (amount < 0) {
+    errors.push({ msg: 'Please insert positive value' });
+    res.redirect('/users/login');
+    return;
+  }
+  User.findOne({ email: receiver }).then(user => {
+    if (!user) {
+      errors.push({ msg: 'Email does not exist' });
+    } else {
+
+      User.findOne({email: receiver}, function(err, receiver_data) {
+        if (err) {
+          console.log("eroare" + err);
+        }
+        console.log(sender + "   " + amount);
+        User.findOne({email: sender}, function(err, sender_data) {
+          if (err) {
+            console.log("eroare" + err);
+          }
+          if (sender_data.amount < amount) {
+            errors.push({msg: 'Not enough money'});
+          } else {
+            var updated_amount = parseInt(amount) + receiver_data.amount
+            console.log("Send " + amount);
+
+            User.updateOne({email: receiver}, {
+              amount: updated_amount
+            }, function(err, affected, resp) {
+              console.log(resp);
+            })
+
+            var to_subtract = sender_data.amount - parseInt(amount)
+            console.log("Subtract " + amount)
+            User.updateOne({email: sender}, {
+              amount: to_subtract
+            }, function(err, affected, resp) {
+              console.log(resp);
+            })
+
+          }
+        });
+
+      });
+
+
+    }
+    res.redirect('/users/login');
+  });
+
+})
+
 module.exports = router;

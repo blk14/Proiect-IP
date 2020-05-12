@@ -6,8 +6,9 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="about.css">
-<link rel="stylesheet" type="text/css" href="home.css">
+<!-- <link rel="stylesheet" type="text/css" href="home.css"> -->
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
+
 
 <style type="text/css">
   a:hover {
@@ -28,13 +29,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Home</a>
+                <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Home</a> -->
+                <a class="nav-link" href="/users/login">Home</a>
               </li>
             <li class="nav-item">
                 <a class="nav-link" href="/users/login">Account Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users/transactions">Transactions</a>
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Transactions</a>
+                <!-- <a class="nav-link" href="/users/transactions">Transactions</a> -->
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/users/payments">Payments</a>
@@ -48,14 +51,7 @@
         </div>
     </nav>
     <div>
-        <h3>Current Amount:</h3>
-        <h1><%= amount %>$</h1>
-
-        <!-- <button id="btn">RESTART</button> -->
-        <div id="progress-bar-container">
-		    <div class="progress-bar-child progress"></div>
-		    <div class="progress-bar-child shrinker timelapse"></div>
-        </div>
+        
     </div>
     
 </body>
