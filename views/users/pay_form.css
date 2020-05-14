@@ -41,6 +41,17 @@
     border-radius: 3px;
     opacity: 100%;
   }
+  #payments_nr {
+    padding: 0 0;
+    width: 5%;
+    margin-left: 5px;
+  }
+
+  #freq {
+    padding: 0 0;
+    width: 15%;
+    margin-left: 5px;
+  }
   
   /* label {
     margin-bottom: 10px;

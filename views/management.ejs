@@ -6,10 +6,9 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="about.css">
+<link rel="stylesheet" type="text/css" href="home.css">
 <link rel="stylesheet" type="text/css" href="loginStyle.css">
-<link rel="stylesheet" type="text/css" href="history.css">
-
-
+<link rel="stylesheet" type="text/css" href="about.css">
 
 <style type="text/css">
   a:hover {
@@ -34,11 +33,11 @@
                 <a class="nav-link" href="/users/login">Home</a>
               </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users/management">Account Management</a>
+                <!-- <a class="nav-link" href="/users/login">Account Management</a> -->
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Account Management</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Transactions</a>
-                <!-- <a class="nav-link" href="/users/transactions">Transactions</a> -->
+                <a class="nav-link" href="/users/transactions">Transactions</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/users/payments">Payments</a>
@@ -51,23 +50,59 @@
         </ul>
         </div>
     </nav>
-
-    <div class="form-group">
-      <ul class="form-control">
-          <% for (var i = 0; i < history.length ; i++) { %>
-              <li id = "opt"> <%= history[i] %> </li>
-          <% } %>
-          </ul>
-    </div>
-
-    <!-- <div>
-      <h1 class = "hist"><%= history %>$</h1>
-    </div> -->
-    
+    <div class="container" style = "margin: auto;">
+        <div class="d-flex justify-content-center h-100">
+          <div class="card" style="margin-top: 60px;">
+            <div class="card-header">
+              <h3>Account Management</h3>
+              <div class="d-flex justify-content-end social_icon">
+                <span><i class="fab fa-facebook-square"></i></span>
+                <span><i class="fab fa-google-plus-square"></i></span>
+                <span><i class="fab fa-twitter-square"></i></span>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="/users/management" method="POST">
+      
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="New Username">
+                  
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="New Email">
+                  
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  </div>
+                  <input type="password" name="password" id="password" class="form-control" placeholder="New Password">
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  </div>
+                  <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm New Password">
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="Apply" class="btn float-right login_btn">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 </body>
 
 
-    <footer class="mainfooter" role="contentinfo">
+    <footer class="mainfooter" role="contentinfo" style = "position: fixed; margin-bottom: 0;" >
         <div class="footer-middle">
         <div class="container">
           <div class="row">
