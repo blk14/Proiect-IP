@@ -111,29 +111,53 @@ router.get('/transactions', ensureAuthenticated,(req, res) =>
   })
 );
 
-router.post('/payments', (req, res) => {
+ router.post('/payments', async (req, res) => {
   // console.log(req.user.email + " fraierul")
   var {receiver, amount, payments_nr, freq} = req.body;
+  const { name, email, password, password2 } = req.body;
   let errors = [];
   var sender = req.user.email;
 
-  if (!receiver || !amount) {
+  var ok = 1;
+
+  if (!receiver || !amount || !payments_nr || !freq) {
     errors.push({ msg: 'Please enter all fields' });
-    res.redirect('/users/login');
-    return;
+    // res.redirect('/users/login');
+    // return;
+    ok = 0;
   }
   
   if (amount < 0) {
     errors.push({ msg: 'Please insert positive value' });
-    res.redirect('/users/login');
-    return;
+    // res.redirect('/users/login');
+    // return;
+    ok = 0;
   }
-  console.log("payments_nr " + payments_nr + " freq: " + freq);
 
-  var timer = setInterval(function() {
+
+
+   await User.findOne({ email: receiver }).then(user => {
+    if (!user) {
+      console.log("email does not exists");
+      errors.push({ msg: 'Email does not exist' });
+      ok = 0;
+    }
+
+    if (user.amount < amount) {
+      console.log("not enoough money");
+      errors.push({ msg: 'Not enough money' });
+      ok = 0;
+    }
+  });
+
+  console.log("payments_nr " + payments_nr + " freq: " + freq);
+  if (ok == 1) {
+    console.log("heree");
+    var timer = setInterval(function() {
 
       User.findOne({ email: receiver }).then(user => {
         if (!user) {
+          console.log("email does not exists");
           errors.push({ msg: 'Email does not exist' });
         } else {
     
@@ -190,10 +214,11 @@ router.post('/payments', (req, res) => {
             });
     
           });
-    
-    
         }
+
       });
+
+
 
     payments_nr--;
     console.log("payments_nr " + payments_nr + " freq: " + freq);
@@ -203,16 +228,28 @@ router.post('/payments', (req, res) => {
     }
 
     }, freq * 1000);
+  }
 
-  res.redirect('/users/login');
-
+    console.log("aicisa sunt erori   " + errors.length + "   " + errors);
+    if (errors.length > 0) {
+      console.log("i got an error")
+      res.render('payments.ejs', {
+        errors,
+        name,
+        email,
+        password,
+        password2
+      });
+    } else {
+      res.redirect('/users/payments');
+    }
 });
 
 router.get('/management', ensureAuthenticated, (req, res) => {
   res.render('management.ejs');
 });
 
-router.post('/management', ensureAuthenticated, (req, res) => {
+router.post('/management', ensureAuthenticated, async (req, res) => {
   var { name, email, password, password2 } = req.body;
   let errors = [];
   const old_email = req.user.email;
@@ -221,7 +258,7 @@ router.post('/management', ensureAuthenticated, (req, res) => {
     errors.push({ msg: 'Please enter all fields' });
   }
 
-  if (password != password2) {
+  if (password != password2) { 
     errors.push({ msg: 'Passwords do not match' });
   }
 
@@ -229,14 +266,23 @@ router.post('/management', ensureAuthenticated, (req, res) => {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
 
+  await User.findOne({email: email}, function(err, new_email_data) {
+    console.log(new_email_data )
+    if (new_email_data && new_email_data.email != old_email) {
+      errors.push({ msg: 'Email already exists' })
+      console.log("1 this email already exists")
+    }
+  });
+
   if (errors.length > 0) {
-    res.render('register.ejs', {
+    res.render('management.ejs', {
       errors,
       name,
       email,
       password,
       password2
     });
+    return;
   } else {
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -250,7 +296,7 @@ router.post('/management', ensureAuthenticated, (req, res) => {
     User.findOne({email: email}, function(err, new_email_data) {
       if (new_email_data && new_email_data.email != old_email) {
         errors.push("this email already exists")
-        console.log("this email already exists")
+        console.log("2 this email already exists")
       } else {
         User.updateOne({email: old_email}, {
           email: email,
@@ -263,7 +309,8 @@ router.post('/management', ensureAuthenticated, (req, res) => {
     })
 
   }
-  res.redirect('/users/login');
+
+  res.redirect('/users/management');
 });
 
 

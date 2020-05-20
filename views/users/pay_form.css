@@ -1,4 +1,12 @@
 
+  .msg {
+    font-size: 16;
+    display: flex;
+    margin-left: 50%;
+    margin-right: auto;
+    left: 50%;
+    margin-bottom: 5px;
+  }
   .col-25 {
     -ms-flex: 25%; /* IE10 */
     flex: 25%;
@@ -29,7 +37,7 @@
     border: 1px solid lightgrey;
     border-radius: 3px;
     margin-top: 80px;
-    width: 50%;
+    width: 65%;
     opacity: 92%;
   }
   

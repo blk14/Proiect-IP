@@ -1,28 +1,44 @@
+<link rel="stylesheet" type="text/css" href="msg.css">
+
 <% if(typeof errors != 'undefined'){ %> <% errors.forEach(function(error) { %>
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-warning alert-dismissible fade show" role="alert"
+style="height: 65;
+display: block;
+position: absolute;
+margin-top: 20px;">
   <%= error.msg %>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button type="button" class="close" data-dismiss="alert">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<% }); %> <% } %> <% if(success_msg != ''){ %>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<% }); %> 
+<% } %> <% if(success_msg != ''){ %>
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="height: 65;
+display: block;
+position: absolute;
+margin-top: 20px;">
   <%= success_msg %>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button type="button" class="close" data-dismiss="alert">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <% } %> <% if(error_msg != ''){ %>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="height: 65;
+display: block;
+position: absolute;
+margin-top: 20px;">
   <%= error_msg %>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button type="button" class="close" data-dismiss="alert">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <% } %> <% if(error != ''){ %>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="height: 65;
+display: block;
+position: absolute;
+margin-top: 20px;">
   <%= error %>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button type="button" class="close" data-dismiss="alert">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
